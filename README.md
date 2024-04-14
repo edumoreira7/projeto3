@@ -1,2 +1,3 @@
 # projeto3
-Criação de uma lista de tarefas
+Criação de uma agenda de contatos
+
