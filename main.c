@@ -16,9 +16,9 @@ int main(){
     printf("5 - Carregar contatos\n");
     printf("0 - Sair\n");
     printf("Escolha uma opcao: ");
-
+  
     scanf("%d", &opcao);
-    printf("%d\n", opcao);
+    
     if(opcao > 5){
       printf("Opcao invalida\n");
     }else if (opcao == 1){
