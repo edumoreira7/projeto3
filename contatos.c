@@ -5,6 +5,8 @@
 int adicionarC(Contato contatos[], int *pos){
   if (*pos >= TOTAL)
     return 1;
+  if (*pos == 0)
+    return 1;
 
   printf("Digite o telefone: ");
   scanf("%lld", &contatos[*pos].telefone);
@@ -24,12 +26,47 @@ int adicionarC(Contato contatos[], int *pos){
 
   *pos = *pos +1;
 
+  printf("%d", *pos);
   return 0;
 }
+
 int deletarC(Contato contatos[], int *pos){
-  printf("funcao de deletar contato\n");
+  if(*pos == 0)
+    return 1;
+
+  int pos_d;
+  
+  long long int numero_d;
+  printf("Entre com o número do contato: ");
+  scanf("%lld", &numero_d);
+
+  int cont;
+  
+  for(int i = 0; i<*pos; i++){
+    if (numero_d == contatos[i].telefone){
+      pos_d = i;
+    }else{
+      cont = 0;
+    }
+  }
+  if(pos_d >= *pos)
+    return 2;
+  
+  for(int i = pos_d; i<*pos; i++){
+    contatos[i].telefone = contatos[i + 1].telefone;
+    strcpy(contatos[i].nome, contatos[i + 1].nome);
+    strcpy(contatos[i].sobrenome, contatos[i + 1].sobrenome);
+    strcpy(contatos[i].email, contatos[i + 1].email);
+  }
+  
+  *pos = *pos - 1;
+
+  if(pos_d >= *pos)
+    return 2;
+  
   return 0;
 }
+
 int listarC(Contato contatos[], int pos){
   if(pos == 0)
     return 1;
