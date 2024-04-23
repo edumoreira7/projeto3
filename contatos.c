@@ -5,8 +5,6 @@
 int adicionarC(Contato contatos[], int *pos){
   if (*pos >= TOTAL)
     return 1;
-  if (*pos == 0)
-    return 1;
 
   printf("Digite o telefone: ");
   scanf("%lld", &contatos[*pos].telefone);
@@ -26,7 +24,6 @@ int adicionarC(Contato contatos[], int *pos){
 
   *pos = *pos +1;
 
-  printf("%d", *pos);
   return 0;
 }
 
@@ -82,11 +79,41 @@ int listarC(Contato contatos[], int pos){
   return 0;
 }
 int salvarC(Contato contatos[], int total, int pos){
-  printf("funcao de salvar contato\n");
+  FILE *f = fopen("contatos", "wb");
+  if(f == NULL)
+    return 1;
+
+  int e = fwrite(contatos, total, sizeof(Contato), f);
+    if(e<=0)
+      return 2;
+
+  e = fwrite(&pos, 1, sizeof(int), f);
+  if(e<=0)
+    return 2;
+
+  e = fclose(f);
+  if(e!=0)
+    return 3;
+
   return 0;
 }
-int carregarC(Contato contatos[], int total, int pos){
-  printf("funcao de carregar contato\n");
+int carregarC(Contato contatos[], int total, int *pos){
+  FILE *f = fopen("contatos", "rb");
+  if(f == NULL)
+    return 1;
+
+  int e = fread(contatos, total, sizeof(Contato), f);
+  if(e<=0)
+    return 2;
+
+  e = fread(pos, 1, sizeof(int), f);
+  if(e<=0)
+    return 2;
+
+  e = fclose(f);
+  if(e!=0)
+    return 3;
+
   return 0;
 }
 void clearBuffer(){
