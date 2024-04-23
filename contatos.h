@@ -7,9 +7,9 @@ typedef struct Contato {
   long long int telefone;
 } Contato;
 
-int adicionarC(Contato tarefas[], int *pos);
-int deletarC(Contato tarefas[], int *pos);
-int listarC(Contato tarefas[], int pos);
-int salvarC(Contato tarefas[], int total, int pos);
-int carregarC(Contato tarefas[], int total, int pos);
+int adicionarC(Contato contatos[], int *pos);
+int deletarC(Contato contatos[], int *pos);
+int listarC(Contato contatos[], int pos);
+int salvarC(Contato contatos[], int total, int pos);
+int carregarC(Contato contatos[], int total, int *pos);
 void clearBuffer();

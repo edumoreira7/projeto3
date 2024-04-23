@@ -30,7 +30,7 @@ int main(){
     }else if (opcao == 4){
       salvarC(contatos, TOTAL, pos);
     }else if (opcao == 5){
-      carregarC(contatos, TOTAL, pos);
+      carregarC(contatos, TOTAL, &pos);
     }else if (opcao == 0){
       printf("Saindo...");
       break;
