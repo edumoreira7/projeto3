@@ -29,7 +29,7 @@ int main(){
     printf("Escolha uma opção: ");
   
     scanf("%d", &opcao);
-    
+    printf("\n");
     if(opcao > 5){
       printf("Opção invalida\n");
     }else if (opcao == 1){
@@ -64,6 +64,13 @@ int main(){
         printf("Erro ao fechar o arquivo.\n");
     }else if (opcao == 0){
       printf("Saindo...");
+      e = salvarC(contatos, TOTAL, pos);
+      if(e == ABRIR)
+        printf("Erro ao abrir o arquivo.\n");
+      if(e == ESCREVER)
+        printf("Erro ao escrever no arquivo.\n");
+      if(e == FECHAR)
+        printf("Erro ao fechar o arquivo.\n");
       break;
     }
 
