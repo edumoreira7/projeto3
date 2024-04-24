@@ -1,9 +1,9 @@
 #define TOTAL 255
 
 typedef struct Contato {
-  char nome[400];
-  char sobrenome[400];
-  char email[400];
+  char nome[100];
+  char sobrenome[100];
+  char email[200];
   long long int telefone;
 } Contato;
 
