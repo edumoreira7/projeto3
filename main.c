@@ -5,6 +5,17 @@ int main(){
   int pos = 0;
   Contato contatos[TOTAL];
 
+  Erro e = carregarC(contatos, TOTAL, &pos);
+  if(e == ABRIR){
+    printf("Erro ao abrir o arquivo.\n");
+  }
+  else if(e == LER){
+    printf("Erro ao ler o arquivo.\n");
+  }  
+  else if(e == FECHAR){
+    printf("Erro ao fechar o arquivo.\n");
+  }
+ 
   int opcao;
 
   do{
@@ -15,22 +26,42 @@ int main(){
     printf("4 - Salvar contatos\n");
     printf("5 - Carregar contatos\n");
     printf("0 - Sair\n");
-    printf("Escolha uma opcao: ");
+    printf("Escolha uma opção: ");
   
     scanf("%d", &opcao);
     
     if(opcao > 5){
-      printf("Opcao invalida\n");
+      printf("Opção invalida\n");
     }else if (opcao == 1){
-      adicionarC(contatos, &pos);
+      e = adicionarC(contatos, &pos);
+      if(e == MAX_CONTATOS)
+        printf("Não é possivel adicionar mais contatos.\n");
     }else if (opcao == 2){
-      deletarC(contatos, &pos);
+      e = deletarC(contatos, &pos);
+      if(e == SEM_CONTATOS)
+        printf("Não há contatos para deletar.\n");
+      else if(e == NAO_EXISTE)
+        printf("Contato não encontrado.\n");
     }else if (opcao == 3){
-      listarC(contatos, pos);
+      e = listarC(contatos, pos);
+      if(e == SEM_CONTATOS)
+        printf("Não há contatos para listar.\n");
     }else if (opcao == 4){
-      salvarC(contatos, TOTAL, pos);
+      e = salvarC(contatos, TOTAL, pos);
+      if(e == ABRIR)
+        printf("Erro ao abrir o arquivo.\n");
+      if(e == ESCREVER)
+        printf("Erro ao escrever no arquivo.\n");
+      if(e == FECHAR)
+        printf("Erro ao fechar o arquivo.\n");
     }else if (opcao == 5){
-      carregarC(contatos, TOTAL, &pos);
+      e = carregarC(contatos, TOTAL, &pos);
+      if(e == ABRIR)
+        printf("Erro ao abrir o arquivo.\n");
+      else if(e == LER)
+        printf("Erro ao ler o arquivo.\n");
+      else if(e == FECHAR)
+        printf("Erro ao fechar o arquivo.\n");
     }else if (opcao == 0){
       printf("Saindo...");
       break;

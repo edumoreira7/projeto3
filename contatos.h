@@ -7,9 +7,11 @@ typedef struct Contato {
   long long int telefone;
 } Contato;
 
-int adicionarC(Contato contatos[], int *pos);
-int deletarC(Contato contatos[], int *pos);
-int listarC(Contato contatos[], int pos);
-int salvarC(Contato contatos[], int total, int pos);
-int carregarC(Contato contatos[], int total, int *pos);
+typedef enum Erros {OK, MAX_CONTATOS, SEM_CONTATOS, NAO_EXISTE, ABRIR, FECHAR, ESCREVER, LER} Erro;
+
+Erro adicionarC(Contato contatos[], int *pos);
+Erro deletarC(Contato contatos[], int *pos);
+Erro listarC(Contato contatos[], int pos);
+Erro salvarC(Contato contatos[], int total, int pos);
+Erro carregarC(Contato contatos[], int total, int *pos);
 void clearBuffer();

@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 
-int adicionarC(Contato contatos[], int *pos){
+Erro adicionarC(Contato contatos[], int *pos){
   if (*pos >= TOTAL)
-    return 1;
+    return MAX_CONTATOS;
 
   printf("Digite o telefone: ");
   scanf("%lld", &contatos[*pos].telefone);
@@ -24,12 +24,12 @@ int adicionarC(Contato contatos[], int *pos){
 
   *pos = *pos +1;
 
-  return 0;
+  return OK;
 }
 
-int deletarC(Contato contatos[], int *pos){
+Erro deletarC(Contato contatos[], int *pos){
   if(*pos == 0)
-    return 1;
+    return SEM_CONTATOS;
 
   int pos_d;
   
@@ -37,17 +37,21 @@ int deletarC(Contato contatos[], int *pos){
   printf("Entre com o número do contato: ");
   scanf("%lld", &numero_d);
 
-  int cont;
+  int cont = 0;
   
   for(int i = 0; i<*pos; i++){
     if (numero_d == contatos[i].telefone){
       pos_d = i;
-    }else{
-      cont = 0;
+      cont++;
+      break;
     }
   }
-  if(pos_d >= *pos)
-    return 2;
+  
+  if(pos_d >= *pos){
+    return NAO_EXISTE;
+  }else if(cont == 0){
+    return NAO_EXISTE;
+  }
   
   for(int i = pos_d; i<*pos; i++){
     contatos[i].telefone = contatos[i + 1].telefone;
@@ -57,16 +61,13 @@ int deletarC(Contato contatos[], int *pos){
   }
   
   *pos = *pos - 1;
-
-  if(pos_d >= *pos)
-    return 2;
   
-  return 0;
+  return OK;
 }
 
-int listarC(Contato contatos[], int pos){
+Erro listarC(Contato contatos[], int pos){
   if(pos == 0)
-    return 1;
+    return SEM_CONTATOS;
 
   for(int i=0; i<pos; i++){
     printf("Nome: %s ", contatos[i].nome);
@@ -76,46 +77,49 @@ int listarC(Contato contatos[], int pos){
     printf("------------------------\n");
   }
 
-  return 0;
+  return OK;
 }
-int salvarC(Contato contatos[], int total, int pos){
+
+Erro salvarC(Contato contatos[], int total, int pos){
   FILE *f = fopen("contatos", "wb");
   if(f == NULL)
-    return 1;
+    return ABRIR;
 
   int e = fwrite(contatos, total, sizeof(Contato), f);
     if(e<=0)
-      return 2;
+      return ESCREVER;
 
   e = fwrite(&pos, 1, sizeof(int), f);
   if(e<=0)
-    return 2;
+    return ESCREVER;
 
   e = fclose(f);
   if(e!=0)
-    return 3;
+    return FECHAR;
 
-  return 0;
+  return OK;
 }
-int carregarC(Contato contatos[], int total, int *pos){
+
+Erro carregarC(Contato contatos[], int total, int *pos){
   FILE *f = fopen("contatos", "rb");
   if(f == NULL)
-    return 1;
+    return ABRIR;
 
   int e = fread(contatos, total, sizeof(Contato), f);
   if(e<=0)
-    return 2;
+    return LER;
 
   e = fread(pos, 1, sizeof(int), f);
   if(e<=0)
-    return 2;
+    return LER;
 
   e = fclose(f);
   if(e!=0)
-    return 3;
+    return FECHAR;
 
-  return 0;
+  return OK;
 }
+
 void clearBuffer(){
   int c;
   while ((c = getchar()) != '\n' && c != EOF) { }
