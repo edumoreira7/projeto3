@@ -23,14 +23,15 @@ int main(){
     printf("1 - Adicionar contato\n");
     printf("2 - Deletar contato\n");
     printf("3 - Listar contatos\n");
-    printf("4 - Salvar contatos\n");
-    printf("5 - Carregar contatos\n");
+    printf("4 - Editar contato\n");
+    printf("5 - Salvar contatos\n");
+    printf("6 - Carregar contatos\n");
     printf("0 - Sair\n");
     printf("Escolha uma opção: ");
   
     scanf("%d", &opcao);
     printf("\n");
-    if(opcao > 5){
+    if(opcao > 6){
       printf("Opção invalida\n");
     }else if (opcao == 1){
       e = adicionarC(contatos, &pos);
@@ -51,6 +52,10 @@ int main(){
       if(e == SEM_CONTATOS)
         printf("Não há contatos para listar.\n");
     }else if (opcao == 4){
+      e = editarC(contatos, &pos);
+      if(e == SEM_CONTATOS)
+        printf("Não há contatos para editar.\n");
+    }else if (opcao == 5){
       e = salvarC(contatos, TOTAL, pos);
       if(e == ABRIR)
         printf("Erro ao abrir o arquivo.\n");
@@ -58,7 +63,7 @@ int main(){
         printf("Erro ao escrever no arquivo.\n");
       if(e == FECHAR)
         printf("Erro ao fechar o arquivo.\n");
-    }else if (opcao == 5){
+    }else if (opcao == 6){
       e = carregarC(contatos, TOTAL, &pos);
       if(e == ABRIR)
         printf("Erro ao abrir o arquivo.\n");
