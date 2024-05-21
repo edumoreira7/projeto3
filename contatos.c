@@ -6,13 +6,24 @@ Erro adicionarC(Contato contatos[], int *pos){
   if (*pos >= TOTAL)
     return MAX_CONTATOS;
 
+  long long int telefone;
+  
   printf("Digite o telefone: ");
-  scanf("%lld", &contatos[*pos].telefone);
+  scanf("%lld", &telefone);
   clearBuffer();
+
+  for(int i = 0; i<*pos; i++){
+    if (telefone == contatos[i].telefone){
+      return JA_EXISTE;
+    }else
+      contatos[*pos].telefone = telefone;
+  }
+
   
   printf("Digite o nome: ");
   fgets(contatos[*pos].nome, 400, stdin);
   contatos[*pos].nome[strcspn(contatos[*pos].nome, "\n")] = '\0';
+  
   
   printf("Digite o sobrenome: ");
   fgets(contatos[*pos].sobrenome, 400, stdin);
@@ -22,6 +33,11 @@ Erro adicionarC(Contato contatos[], int *pos){
   fgets(contatos[*pos].email, 400, stdin);
   contatos[*pos].email[strcspn(contatos[*pos].email, "\n")] = '\0';
 
+  if (strchr(contatos[*pos].email, '@') != NULL) {
+    printf("Contato Adicionado!");
+  } else {
+    return INVALIDO;
+  }
   *pos = *pos +1;
 
   return OK;

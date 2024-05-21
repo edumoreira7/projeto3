@@ -36,6 +36,10 @@ int main(){
       e = adicionarC(contatos, &pos);
       if(e == MAX_CONTATOS)
         printf("Não é possivel adicionar mais contatos.\n");
+      else if(e == JA_EXISTE)
+        printf("Já existe um contato com esse número.\n");
+      else if(e == INVALIDO)
+        printf("Email inválido.\n");
     }else if (opcao == 2){
       e = deletarC(contatos, &pos);
       if(e == SEM_CONTATOS)
