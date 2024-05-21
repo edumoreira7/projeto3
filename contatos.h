@@ -7,7 +7,7 @@ typedef struct Contato {
   long long int telefone;
 } Contato;
 
-typedef enum Erros {OK, MAX_CONTATOS, SEM_CONTATOS, NAO_EXISTE, ABRIR, FECHAR, ESCREVER, LER} Erro;
+typedef enum Erros {OK, MAX_CONTATOS, SEM_CONTATOS, NAO_EXISTE, ABRIR, FECHAR, ESCREVER, LER, JA_EXISTE, INVALIDO} Erro;
 
 Erro adicionarC(Contato contatos[], int *pos);
 Erro deletarC(Contato contatos[], int *pos);
