@@ -96,6 +96,81 @@ Erro listarC(Contato contatos[], int pos){
   return OK;
 }
 
+Erro editarC(Contato contatos[], int *pos){
+  if(*pos == 0)
+    return SEM_CONTATOS;
+
+  int pos_e;
+
+  long long int numero_e;
+  printf("Entre com o número do contato: ");
+  scanf("%lld", &numero_e);
+
+  int cont = 0;
+
+  for(int i = 0; i<*pos; i++){
+    if (numero_e == contatos[i].telefone){
+      pos_e = i;
+      cont++;
+      break;
+    }
+  }
+
+  if(pos_e >= *pos){
+    return NAO_EXISTE;
+  }else if(cont == 0){
+    return NAO_EXISTE;
+  }
+
+  printf("Dados atuais:\n");
+  printf("Nome: %s ", contatos[pos_e].nome);
+  printf("%s\n", contatos[pos_e].sobrenome);
+  printf("Email: %s\n", contatos[pos_e].email);
+  printf("Telefone: %lld\n", contatos[pos_e].telefone);
+  
+  int opcao;
+  long long int telefone;
+  
+  printf("\nO que deseja editar?\n");
+  printf("1 - Nome\n");
+  printf("2 - Email\n");
+  printf("3 - Telefone\n");
+  printf("4 - Voltar\n");
+  scanf("%d", &opcao);
+  clearBuffer();
+  
+  if(opcao == 1){
+    printf("Digite o novo nome: ");
+    fgets(contatos[pos_e].nome, 400, stdin);
+    contatos[pos_e].nome[strcspn(contatos[pos_e].nome, "\n")] = '\0';
+    printf("Digite o sobrenome: ");
+    fgets(contatos[pos_e].sobrenome, 400, stdin);
+    contatos[pos_e].sobrenome[strcspn(contatos[pos_e].sobrenome, "\n")] = '\0';
+  }else if(opcao == 2){
+    printf("Digite o novo email: ");
+    fgets(contatos[pos_e].email, 400, stdin);
+    contatos[pos_e].email[strcspn(contatos[pos_e].email, "\n")] = '\0';
+
+    if (strchr(contatos[pos_e].email, '@') != NULL) {
+      printf("Contato Adicionado!");
+    } else {
+      return INVALIDO;
+    }
+  }else if(opcao == 3){
+    printf("Digite o novo telefone: ");
+    scanf("%lld", &telefone);
+    
+    for(int i = 0; i<*pos; i++){
+      if (telefone == contatos[i].telefone){
+        return JA_EXISTE;
+      }else
+        contatos[pos_e].telefone = telefone;
+    }
+  }
+
+  return OK;
+}
+
 Erro salvarC(Contato contatos[], int total, int pos){
   FILE *f = fopen("contatos", "wb");
   if(f == NULL)
