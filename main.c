@@ -3,9 +3,12 @@
 
 int main(){
   int pos = 0;
+  int posT = 0;
+  
   Contato contatos[TOTAL];
+  ContatoT contatosT[TOTAL];
 
-  Erro e = carregarC(contatos, TOTAL, &pos);
+  Erro e = carregarC(contatos, TOTAL, &pos, contatosT, &posT);
   if(e == ABRIR){
     printf("Erro ao abrir o arquivo.\n");
   }
@@ -34,7 +37,7 @@ int main(){
     if(opcao > 6){
       printf("Opção invalida\n");
     }else if (opcao == 1){
-      e = adicionarC(contatos, &pos);
+      e = adicionarC(contatos, &pos, contatosT, &posT);
       if(e == MAX_CONTATOS)
         printf("Não é possivel adicionar mais contatos.\n");
       else if(e == JA_EXISTE)
@@ -42,21 +45,21 @@ int main(){
       else if(e == INVALIDO)
         printf("Email inválido.\n");
     }else if (opcao == 2){
-      e = deletarC(contatos, &pos);
+      e = deletarC(contatos, &pos, contatosT, &posT);
       if(e == SEM_CONTATOS)
         printf("Não há contatos para deletar.\n");
       else if(e == NAO_EXISTE)
         printf("Contato não encontrado.\n");
     }else if (opcao == 3){
-      e = listarC(contatos, pos);
+      e = listarC(contatos, pos, contatosT, posT);
       if(e == SEM_CONTATOS)
         printf("Não há contatos para listar.\n");
     }else if (opcao == 4){
-      e = editarC(contatos, &pos);
+      e = editarC(contatos, &pos, contatosT, &posT);
       if(e == SEM_CONTATOS)
         printf("Não há contatos para editar.\n");
     }else if (opcao == 5){
-      e = salvarC(contatos, TOTAL, pos);
+      e = salvarC(contatos, TOTAL, pos, contatosT, posT);
       if(e == ABRIR)
         printf("Erro ao abrir o arquivo.\n");
       if(e == ESCREVER)
@@ -64,7 +67,7 @@ int main(){
       if(e == FECHAR)
         printf("Erro ao fechar o arquivo.\n");
     }else if (opcao == 6){
-      e = carregarC(contatos, TOTAL, &pos);
+      e = carregarC(contatos, TOTAL, &pos, contatosT, &posT);
       if(e == ABRIR)
         printf("Erro ao abrir o arquivo.\n");
       else if(e == LER)
@@ -73,7 +76,7 @@ int main(){
         printf("Erro ao fechar o arquivo.\n");
     }else if (opcao == 0){
       printf("Saindo...");
-      e = salvarC(contatos, TOTAL, pos);
+      e = salvarC(contatos, TOTAL, pos, contatosT, posT);
       if(e == ABRIR)
         printf("Erro ao abrir o arquivo.\n");
       if(e == ESCREVER)
